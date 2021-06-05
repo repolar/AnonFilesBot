@@ -93,7 +93,7 @@ async def upload(client, message):
 **Size:** `{text['data']['file']['metadata']['size']['readable']}`
 
 **@JEBotZ**"""
-        lenk = {text['data']['file']['url']['full']}
+        lenk = ['data']['file']['url']['full']
         btn = InlineKeyboardMarkup(
                                 [[InlineKeyboardButton("Download 📥", url=f"{lenk}")]])
         await m.edit(output, reply_markup=btn)
