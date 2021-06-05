@@ -124,7 +124,7 @@ async def upload(client, message):
 
 **📥 Download Link:** `{text['data']['file']['url']['full']}`
 
-**@JEBotZ**"""
+**Join @JEBotZ**"""
         btn = InlineKeyboardMarkup(
                                 [[InlineKeyboardButton("Download File", url=f"{text['data']['file']['url']['full']}")]])
         await m.edit(output, reply_markup=btn)
