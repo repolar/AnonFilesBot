@@ -20,6 +20,7 @@ import logging
 import pyrogram
 import asyncio
 import requests
+import aiohttp
 from config import Config
 from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 from pyrogram import Client, filters, idle
@@ -112,10 +113,13 @@ async def upload(client, message):
                 message, DOWNLOAD
             )
     try:
-        files = {'file': open(sed, 'rb')}
         await m.edit("Uploading To Anon Files...")
-        r = requests.post("https://api.anonfiles.com/upload", files=files)
-        text = r.json()
+        async with aiohttp.ClientSession() as session:
+            files = {
+            'file': open(sed, 'rb')
+            }
+            ApiCall = await session.post("https://api.anonfiles.com/upload", files=files)
+        text = ApiCall.json()
         output = f"""
 <u>**File Uploaded To Anon Files**</u>
 
