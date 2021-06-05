@@ -27,9 +27,8 @@ bot = Client(
 )
 
 
-
 bot.start()
-print("Anon Files Bot Started!/n/nVisit @JEBotZ.")
+print("Anon Files Bot Started!\n\nVisit @JEBotZ.")
 
 
 idle()
