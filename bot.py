@@ -73,7 +73,7 @@ async def button(bot, update):
 @bot.on_message(filters.media & filters.private)
 async def upload(client, message):
     m = await message.reply("Downloading File...")
-    sed = message.media.download()
+    sed = message.download()
     try:
         files = {'file': open(sed, 'rb')}
         await m.edit("Uploading To Anon Files...")
