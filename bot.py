@@ -25,9 +25,9 @@ from pyrogram import Client, filters, idle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, InlineQuery, InputTextMessageContent
 
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+                    level=logging.WARNING)
+
 
 LOGGER = logging.getLogger(__name__)
 
@@ -60,7 +60,7 @@ async def start(client, message):
 
 
 async def help(client, message):
-     await message.reply("**Anon Files Bot Help**\n\nSend me any telegram media file, I'll upload it to anonfiles.com and give direct download link\n\n**@JEBotZ**")
+     await message.reply("**Anon Files Bot Help**\n\nSend me any telegram media file, I'll upload it to anonfiles.com and give you direct download link\n\n**@JEBotZ**")
 
 
 @bot.on_callback_query()
@@ -93,7 +93,10 @@ async def upload(client, message):
 **Size:** `{text['data']['file']['metadata']['size']['readable']}`
 
 **@JEBotZ**"""
-        await m.edit(output)
+        lenk = {text['data']['file']['url']['full']}
+        btn = InlineKeyboardMarkup(
+                                [[InlineKeyboardButton("Download 📥", url=f"{lenk}")]])
+        await m.edit(output, reply_markup=btn)
         os.remove(sed)
     except Exception as e:
         print(str(e))
