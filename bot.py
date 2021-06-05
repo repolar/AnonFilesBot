@@ -74,6 +74,38 @@ async def button(bot, update):
 
 @bot.on_message(filters.media & filters.private)
 async def upload(client, message):
+    if Config.UPDATES_CHANNEL is not None:
+        try:
+            user = await client.get_chat_member(Config.UPDATES_CHANNEL, message.chat.id)
+            if user.status == "kicked":
+                await client.send_message(
+                    chat_id=message.chat.id,
+                    text="Sorry, You are Banned to use me! Contact my [Support Group](https://t.me/InfinityBots_Support).",
+                    parse_mode="markdown",
+                    disable_web_page_preview=True
+                )
+                return
+        except UserNotParticipant:
+            await client.send_message(
+                chat_id=message.chat.id,
+                text="**Please Join My Updates Channel To Use Me 🏃‍♂**",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton("Join Updates Channel", url=f"https://t.me/{Config.UPDATES_CHANNEL}")
+                        ]
+                    ]
+                ),
+                parse_mode="markdown"
+            )
+            return
+        except Exception:
+            await client.send_message(
+                chat_id=message.chat.id,
+                text="Something went Wrong! Contact my [Support Group](https://t.me/InfinityBots_Support).",
+                parse_mode="markdown",
+                disable_web_page_preview=True)
+            return
     m = await message.reply("Downloading File...")
     sed = await bot.download_media(
                 message, DOWNLOAD
