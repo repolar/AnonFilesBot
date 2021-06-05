@@ -7,7 +7,6 @@ import logging
 import pyrogram
 import asyncio
 from config import Config
-from plugins import *
 from pyrogram import Client, filters, idle
 
 logging.basicConfig(
