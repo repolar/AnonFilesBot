@@ -31,6 +31,8 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 
+DOWNLOAD = "./"
+
 # vars
 APP_ID = Config.APP_ID
 API_HASH = Config.API_HASH
@@ -73,7 +75,9 @@ async def button(bot, update):
 @bot.on_message(filters.media & filters.private)
 async def upload(client, message):
     m = await message.reply("Downloading File...")
-    sed = message.download()
+    sed = await bot.download_media(
+                message, DOWNLOAD
+            )
     try:
         files = {'file': open(sed, 'rb')}
         await m.edit("Uploading To Anon Files...")
