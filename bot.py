@@ -8,6 +8,8 @@ import pyrogram
 import asyncio
 from config import Config
 from pyrogram import Client, filters, idle
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, InlineQuery, InputTextMessageContent
+
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
