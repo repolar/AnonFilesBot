@@ -31,9 +31,6 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
 
-
-LOGGER = logging.getLogger(__name__)
-
 DOWNLOAD = "./"
 
 # vars
@@ -144,5 +141,5 @@ async def upload(client, message):
 
 
 bot.start()
-LOGGER.info("Anon Files Bot Is Started!")
+print("Anon Files Bot Is Started!")
 idle()
