@@ -130,7 +130,7 @@ async def upload(client, message):
         await m.edit(output, reply_markup=btn)
         os.remove(sed)
     except Exception:
-        await m.edit("Something Went Wrong!")
+        await m.edit("Process Failed, Maybe Time Out Due To Large File Size!")
         return
 
 
