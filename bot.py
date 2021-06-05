@@ -113,7 +113,7 @@ async def upload(client, message):
             )
     try:
         files = {'file': open(sed, 'rb')}
-        await m.edit("Uploading To Anon Files...")
+        await m.edit("Uploading To Anon Files...\nBig Files Will Take More Time, Don't Panic!")
         callapi = requests.post("https://api.anonfiles.com/upload", files=files)
         text = callapi.json()
         output = f"""
