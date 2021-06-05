@@ -21,7 +21,7 @@ import logging
 import pyrogram
 import asyncio
 import requests
-from progress import *
+from progress import progress
 from config import Config
 from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 from pyrogram import Client, filters, idle
