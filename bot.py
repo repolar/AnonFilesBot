@@ -7,7 +7,7 @@ import logging
 import pyrogram
 import asyncio
 from config import Config
-from pyrogram import Client, idle, filters
+from pyrogram import Client, filters
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -26,10 +26,6 @@ bot = Client(
     plugins=dict(root="plugins")
 )
 
-
-bot.start()
 print("Anon Files Bot Started!\n\nVisit @JEBotZ.")
 
-
-idle()
-bot.stop()
+bot.start()
