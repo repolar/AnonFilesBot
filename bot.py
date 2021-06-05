@@ -20,7 +20,11 @@ APP_ID = Config.APP_ID
 API_HASH = Config.API_HASH
 BOT_TOKEN = Config.BOT_TOKEN
 
-    
+
+plugins = dict(
+        root="plugins"
+    )
+   
 bot = Client(
     "AnonFilesBot",
     api_id=APP_ID,
