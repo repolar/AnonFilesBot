@@ -119,14 +119,14 @@ async def upload(client, message):
         output = f"""
 <u>**File Uploaded To Anon Files**</u>
 
-**ID:** {text['data']['file']['metadata']['id']}
-**Name:** {text['data']['file']['metadata']['name']}
-**Size:** {text['data']['file']['metadata']['size']['readable']}
-**Link:** `{text['data']['file']['url']['full']}`
+**📂 File Name:** {text['data']['file']['metadata']['name']}
+**File Size:** {text['data']['file']['metadata']['size']['readable']}
+
+**📥 Download Link:** `{text['data']['file']['url']['full']}`
 
 **@JEBotZ**"""
         btn = InlineKeyboardMarkup(
-                                [[InlineKeyboardButton("Download 📥", url=f"{text['data']['file']['url']['full']}")]])
+                                [[InlineKeyboardButton("Download File", url=f"{text['data']['file']['url']['full']}")]])
         await m.edit(output, reply_markup=btn)
         os.remove(sed)
     except Exception:
