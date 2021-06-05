@@ -19,6 +19,7 @@ import sys
 import logging
 import pyrogram
 import asyncio
+import requests
 from config import Config
 from pyrogram import Client, filters, idle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, InlineQuery, InputTextMessageContent
@@ -57,7 +58,7 @@ async def start(client, message):
 
 
 async def help(client, message):
-     await message.reply("**Help**\n\nSend me any telegram media file, I'll upload it to anonfiles.com and give direct download link\n\n**@JEBotZ**")
+     await message.reply("**Anon Files Bot Help**\n\nSend me any telegram media file, I'll upload it to anonfiles.com and give direct download link\n\n**@JEBotZ**")
 
 
 @bot.on_callback_query()
@@ -66,6 +67,34 @@ async def button(bot, update):
       if "help" in cb_data:
         await update.message.delete()
         await help(bot, update.message)
+
+
+
+@bot.on_message(filters.media & filters.private)
+async def upload(client, message):
+    m = await message.reply("Downloading File...")
+    sed = message.media.download()
+    try:
+        files = {'file': open(sed, 'rb')}
+        await m.edit("Uploading To Anon Files...")
+        r = requests.post("https://api.anonfiles.com/upload", files=files)
+        text = r.json()
+        output = f"""
+<u>**File Uploaded To Anon Files**</u>
+
+**Status:** `{text['status']}`
+**Link:** {text['data']['file']['url']['full']}
+**ID:** `{text['data']['file']['metadata']['id']}`
+**Name:** `{text['data']['file']['metadata']['name']}`
+**Size:** `{text['data']['file']['metadata']['size']['readable']}`
+
+**@JEBotZ**"""
+        await m.edit(output)
+        os.remove(sed)
+    except Exception as e:
+        print(str(e))
+        await m.edit(str(e))
+        return
 
 
 bot.start()
