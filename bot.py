@@ -16,10 +16,12 @@
 
 import os
 import sys
+import time
 import logging
 import pyrogram
 import asyncio
 import requests
+from progress import *
 from config import Config
 from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 from pyrogram import Client, filters, idle
@@ -108,9 +110,16 @@ async def upload(client, message):
                 disable_web_page_preview=True)
             return
     m = await message.reply("Downloading File...")
+    now = time.time()
     sed = await bot.download_media(
-                message, DOWNLOAD
+                message, DOWNLOAD,
+          progress=progress,
+          progress_args=(
+            "**ETA:** ", 
+            m,
+            now
             )
+        )
     try:
         files = {'file': open(sed, 'rb')}
         await m.edit("Uploading To Anon Files...\nBig Files Will Take More Time, Don't Panic!")
