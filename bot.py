@@ -10,6 +10,11 @@ from config import Config
 from plugins import *
 from pyrogram import Client, filters, idle
 
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
+
+LOGGER = logging.getLogger(__name__)
 
 # vars
 APP_ID = Config.APP_ID
