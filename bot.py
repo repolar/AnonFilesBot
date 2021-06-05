@@ -26,7 +26,8 @@ bot = Client(
     "AnonFilesBot",
     api_id=APP_ID,
     api_hash=API_HASH,
-    bot_token=BOT_TOKEN)
+    bot_token=BOT_TOKEN,
+    plugins=plugins)
 
 
 bot.start()
