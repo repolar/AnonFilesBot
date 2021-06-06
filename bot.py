@@ -19,6 +19,7 @@ import sys
 import time
 import logging
 import pyrogram
+import wget
 import asyncio
 import requests
 from progress import progress
