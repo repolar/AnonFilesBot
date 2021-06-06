@@ -153,19 +153,16 @@ async def upload(client, message):
 @bot.on_message(filters.regex(pattern="https://anonfiles.com") & filters.private & ~filters.edited)
 async def anonurl(client, message):
     msg = await message.reply("Checking Url...")
-    url = message.text
-    cap = "@JEBotZ"
-    thurl = "https://telegra.ph/file/a23b8f38fde1914a4bbe9.jpg"                  
+    lenk = message.text
+    cap = "@JEBotZ"               
     try:
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
-         lel = await download(url)
-         thumb = await download(thurl)
-         pak = "a23b8f38fde1914a4bbe9.jpg"
+         fil = await download(lenk)
+         files = {'file': open(fil, 'rb')}
          await msg.edit("Uploading File To Telegram...")
-         await message.reply_document(lel, caption=cap, thumb=pak)
+         await message.reply_document(files, caption=cap)
          await msg.delete()
-         os.remove(lel)
-         os.remove(thumb)
+         os.remove(fil)
     except Exception:
         await msg.edit("Process Failed, Maybe Time Out Due To Large File Size!")
 
