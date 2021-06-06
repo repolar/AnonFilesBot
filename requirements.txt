@@ -2,4 +2,4 @@ pyrogram
 tgcrypto
 asyncio
 requests
-aiohttp
+wget
