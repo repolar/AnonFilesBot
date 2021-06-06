@@ -22,7 +22,7 @@ import pyrogram
 import aiohttp
 import asyncio
 import requests
-import randit
+from random import randint
 from progress import progress
 from config import Config
 from pyrogram.errors import UserNotParticipant, UserBannedInChannel
