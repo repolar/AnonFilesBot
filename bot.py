@@ -141,7 +141,7 @@ async def upload(client, message):
         await m.edit("Process Failed, Maybe Time Out Due To Large File Size!")
         return
       
-@bot.on_message(filters.regex(pattern="https://") & filters.private & ~filters.edited)
+@bot.on_message(filters.regex(pattern="https://cdn-") & filters.private & ~filters.edited)
 async def url(client, message):
     msg = await message.reply("Checking Url...")
     lenk = message.text
@@ -150,7 +150,7 @@ async def url(client, message):
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
          filename = await download(lenk)
          await msg.edit("Uploading File To Telegram...")
-         await message.reply_document(filename, caption=cap)
+         await message.reply_media(filename, caption=cap)
          await msg.delete()
          os.remove(filename)
     except Exception as e:
