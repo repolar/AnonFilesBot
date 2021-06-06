@@ -146,9 +146,10 @@ async def url(client, message):
     cap = "@JEBotZ"               
     try:
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
-         filename = download(lenk)
+         filename = await download(lenk)
+         files = {'file': open(filename, 'rb')}
          await msg.edit("Uploading File To Telegram...")
-         await message.reply_document(filename, caption=cap)
+         await message.reply_document(files, caption=cap)
          await msg.delete()
          os.remove(filename)
     except Exception as e:
