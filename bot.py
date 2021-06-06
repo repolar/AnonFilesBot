@@ -146,7 +146,7 @@ async def url(client, message):
     cap = "@JEBotZ"               
     try:
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
-         file = await wget.download(lenk)
+         file = wget.download(lenk)
          await msg.edit("Uploading File To Telegram...")
          await message.reply_document(file, caption=cap)
          await msg.delete()
