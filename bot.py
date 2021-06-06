@@ -151,8 +151,9 @@ async def url(client, message):
          await message.reply_document(file, caption=cap)
          await msg.delete()
          os.remove(file)
-    except Exception:
+    except Exception as e:
         await msg.edit("Process Failed, Maybe Time Out Due To Large File Size!")
+        print(e)
         
         
 bot.start()
