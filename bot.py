@@ -19,7 +19,7 @@ import sys
 import time
 import logging
 import pyrogram
-import wget
+import aiohttp
 import asyncio
 import requests
 from progress import progress
@@ -72,6 +72,16 @@ async def button(bot, update):
         await help(bot, update.message)
 
 
+async def download(url):
+    ext = url.split(".")[-1]
+    filename = str(randint(1000, 9999)) + "." + ext
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            if resp.status == 200:
+                f = await aiofiles.open(filename, mode='wb')
+                await f.write(await resp.read())
+                await f.close()
+    return filename
 
 @bot.on_message(filters.media & filters.private)
 async def upload(client, message):
@@ -148,8 +158,8 @@ async def anonurl(client, message):
     thurl = "https://telegra.ph/file/a23b8f38fde1914a4bbe9.jpg"                  
     try:
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
-         lel = wget.download(url)
-         thumb = wget.download(thurl)
+         lel = await download(url)
+         thumb = await download(thurl)
          pak = "a23b8f38fde1914a4bbe9.jpg"
          await msg.edit("Uploading File To Telegram...")
          await message.reply_document(lel, caption=cap, thumb=pak)
