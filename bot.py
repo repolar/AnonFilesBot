@@ -150,7 +150,7 @@ async def url(client, message):
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
          filename = await download(lenk)
          await msg.edit("Uploading File To Telegram...")
-         await message.reply(filename, caption=cap)
+         await message.reply_media(filename, caption=cap)
          await msg.delete()
          os.remove(filename)
     except Exception as e:
