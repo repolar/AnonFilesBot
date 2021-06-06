@@ -145,12 +145,13 @@ async def upload(client, message):
 async def url(client, message):
     msg = await message.reply("Checking Url...")
     lenk = message.text
-    cap = "@JEBotZ"               
+    cap = "@JEBotZ"
+    thumb = "./thumb.jpg"
     try:
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
          filename = await download(lenk)
          await msg.edit("Uploading File To Telegram...")
-         await message.reply_media(filename, caption=cap)
+         await message.reply_document(filename, caption=cap, thumb=thumb)
          await msg.delete()
          os.remove(filename)
     except Exception as e:
