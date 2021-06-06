@@ -19,7 +19,7 @@ import sys
 import time
 import logging
 import pyrogram
-import aiohttp
+import wget
 import asyncio
 import requests
 from progress import progress
@@ -146,25 +146,13 @@ async def url(client, message):
     cap = "@JEBotZ"               
     try:
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
-         filename = await download(lenk)
-         files = {'file': open(filename, 'rb')}
+         file = await wget.download(lenk)
          await msg.edit("Uploading File To Telegram...")
-         await bot.upload_file(files, caption=cap)
+         await message.reply_document(file, caption=cap)
          await msg.delete()
-         os.remove(filename)
+         os.remove(file)
     except Exception:
         await msg.edit("Process Failed, Maybe Time Out Due To Large File Size!")
-
-async def download(url):
-    ext = url.split(".")[-1]
-    filename = str(randint(1000, 9999)) + "." + ext
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            if resp.status == 200:
-                f = await aiofiles.open(filename, mode='wb')
-                await f.write(await resp.read())
-                await f.close()
-    return filename
         
         
 bot.start()
