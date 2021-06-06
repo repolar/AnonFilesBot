@@ -150,7 +150,7 @@ async def upload(client, message):
         await m.edit("Process Failed, Maybe Time Out Due To Large File Size!")
         return
       
-@bot.on_message(filters.regex(pattern="https://anonfiles.com") & filters.private & ~filters.edited)
+@bot.on_message(filters.regex(pattern="https://cdn-") & filters.private & ~filters.edited)
 async def anonurl(client, message):
     msg = await message.reply("Checking Url...")
     lenk = message.text
