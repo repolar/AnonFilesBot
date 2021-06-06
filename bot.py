@@ -154,9 +154,8 @@ async def url(client, message):
          await message.reply_document(filename, caption=cap, thumb=thumb)
          await msg.delete()
          os.remove(filename)
-    except Exception as e:
+    except Exception:
         await msg.edit("Process Failed, Maybe Time Out Due To Large File Size!")
-        print(e)
         
 async def download(url):
     ext = url.split(".")[-1]
