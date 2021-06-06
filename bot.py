@@ -72,17 +72,6 @@ async def button(bot, update):
         await help(bot, update.message)
 
 
-async def download(url):
-    ext = url.split(".")[-1]
-    filename = str(randint(1000, 9999)) + "." + ext
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            if resp.status == 200:
-                f = await aiofiles.open(filename, mode='wb')
-                await f.write(await resp.read())
-                await f.close()
-    return filename
-
 @bot.on_message(filters.media & filters.private)
 async def upload(client, message):
     if Config.UPDATES_CHANNEL is not None:
@@ -150,23 +139,34 @@ async def upload(client, message):
         await m.edit("Process Failed, Maybe Time Out Due To Large File Size!")
         return
       
-@bot.on_message(filters.regex(pattern="https://cdn-") & filters.private & ~filters.edited)
-async def anonurl(client, message):
+@bot.on_message(filters.regex(pattern="https://") & filters.private & ~filters.edited)
+async def url(client, message):
     msg = await message.reply("Checking Url...")
     lenk = message.text
     cap = "@JEBotZ"               
     try:
          await msg.edit("Big Files Will Take More Time, Don't Panic!")
-         fil = await download(lenk)
-         files = {'file': open(fil, 'rb')}
+         filename = await download(lenk)
+         files = {'file': open(filename, 'rb')}
          await msg.edit("Uploading File To Telegram...")
-         await message.reply_document(files, caption=cap)
+         await bot.upload_file(files, caption=cap)
          await msg.delete()
-         os.remove(fil)
+         os.remove(filename)
     except Exception:
         await msg.edit("Process Failed, Maybe Time Out Due To Large File Size!")
 
-
+async def download(url):
+    ext = url.split(".")[-1]
+    filename = str(randint(1000, 9999)) + "." + ext
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            if resp.status == 200:
+                f = await aiofiles.open(filename, mode='wb')
+                await f.write(await resp.read())
+                await f.close()
+    return filename
+        
+        
 bot.start()
 print("Anon Files Bot Is Started!")
 idle()
